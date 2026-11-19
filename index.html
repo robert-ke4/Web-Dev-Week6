@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-tile">
+            <img src="Spendwise_Logo.png" alt="SpendWise logo" width="200" height="150">
+        </div>
+        <nav aria-label="Main">
+            <ul class="nav">
+                <li><a href="#" aria-current="page"><span class="icon" aria-hidden="true">🏠</span>Dashboard</a></li>
+                <li><a href="#expenses-section"><span class="icon" aria-hidden="true">🧾</span>Expenses</a></li>
+                <li><a href="#categories-section"><span class="icon" aria-hidden="true">🗂️</span>Categories</a></li>
+                <li><a href="#"><span class="icon" aria-hidden="true">📊</span>Reports</a></li>
+                <li><a href="#"><span class="icon" aria-hidden="true">🎯</span>Savings Goals</a></li>
+                <li><a href="#"><span class="icon" aria-hidden="true">⚙️</span>Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Header (the total is updated by JavaScript) -->
+    <header class="topbar">
+        <div>
+            <h1>Dashboard</h1>
+            <p>November 2026 budget overview</p>
+        </div>
+        <div class="topbar-right">
+            <div class="total">
+                <span>Spent this month</span>
+                <strong id="header-total">$0 of $0</strong>
+            </div>
+            <div class="avatar" aria-label="Your account">AM</div>
+        </div>
+    </header>
+
+    <main class="content">
+
+        <!-- Budget status (filled in by JavaScript) -->
+        <section class="panel summary" aria-labelledby="summary-title">
+            <div class="summary-main">
+                <h2 id="summary-title">Budget status</h2>
+                <p id="status-message" class="status" role="status"></p>
+                <ul id="alert-list" class="alerts"></ul>
+            </div>
+
+            <dl class="stats">
+                <div><dt>Monthly budget</dt><dd id="stat-budget">-</dd></div>
+                <div><dt>Total spent</dt><dd id="stat-spent">-</dd></div>
+                <div><dt>Remaining</dt><dd id="stat-remaining">-</dd></div>
+                <div><dt>Budget used</dt><dd id="stat-percent">-</dd></div>
+            </dl>
+
+            <form id="budget-form" class="budget-form" novalidate>
+                <div class="field">
+                    <label for="budget-input">Change monthly budget ($)</label>
+                    <input id="budget-input" name="budget" type="number" min="1" step="0.01" inputmode="decimal" placeholder="e.g. 2870">
+                </div>
+                <button type="submit" class="btn">Update budget</button>
+                <p id="budget-message" class="form-message" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <!-- Category cards (created by JavaScript from the categories array) -->
+        <h2 id="categories-section">Spending by category</h2>
+        <div class="cards" id="cards"></div>
+
+        <div class="panels" id="expenses-section">
+
+            <!-- Add expense form -->
+            <section class="panel" aria-labelledby="add-title">
+                <h2 id="add-title">Add an expense</h2>
+                <form id="expense-form" novalidate>
+                    <div class="form-grid">
+                        <div class="field wide">
+                            <label for="exp-description">Description</label>
+                            <input id="exp-description" name="description" type="text" maxlength="60" placeholder="e.g. Groceries at the market" autocomplete="off">
+                        </div>
+                        <div class="field">
+                            <label for="exp-category">Category</label>
+                            <select id="exp-category" name="category"></select>
+                        </div>
+                        <div class="field">
+                            <label for="exp-amount">Amount ($)</label>
+                            <input id="exp-amount" name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00">
+                        </div>
+                        <div class="field wide">
+                            <label for="exp-date">Date</label>
+                            <input id="exp-date" name="date" type="date">
+                        </div>
+                    </div>
+                    <p id="form-message" class="form-message" aria-live="polite"></p>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Add expense</button>
+                        <button type="button" class="btn btn-secondary" id="reset-btn">Reset sample data</button>
+                        <button type="button" class="btn btn-secondary" id="clear-btn">Clear all</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Expense list -->
+            <section class="panel" aria-labelledby="list-title">
+                <div class="list-head">
+                    <div>
+                        <h2 id="list-title">Expenses</h2>
+                        <p id="list-summary" class="muted"></p>
+                    </div>
+                    <div class="field">
+                        <label for="filter-select">Show</label>
+                        <select id="filter-select"></select>
+                    </div>
+                </div>
+                <ul id="expense-list" class="expense-list"></ul>
+            </section>
+
+        </div>
+    </main>
+
+</div>
+</body>
+</html>
